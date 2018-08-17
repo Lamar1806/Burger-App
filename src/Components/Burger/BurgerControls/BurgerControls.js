@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Aux from "../../../Hoc/Aux.js";
+import Aux from "../../Hoc/Aux.js";
 import BurgerDisplay from "../BurgerDisplay/BurgerDisplay.js"; 
 import "./BurgerControls.css";
 
@@ -26,7 +26,7 @@ class BurgerControls extends Component{
         this.setState({
             ingredients: tempArray
         });
-        console.log(ids);
+        console.log(id);
         // console.log(ingredient);
         // console.log(index);
         // console.log(tempArray) ;
