@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Aux from "../../Hoc/Aux.js";
+import Aux from "../../Hoc/Auxx";
 import BurgerDisplay from "../BurgerDisplay/BurgerDisplay.js"; 
 import "./BurgerControls.css";
 
@@ -11,7 +11,7 @@ class BurgerControls extends Component{
           {name: 'Cheese', count: 0},
           {name: 'Meat', count: 0}
         ]
-    }    
+    }     
     less = (event) =>  {
         var id = event.target.id;
         
