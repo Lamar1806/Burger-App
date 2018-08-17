@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    font-size: 10px;
+}
+.logo{
+    /* height: 50px; */
+    width: 50px;
+    position: relative;
+    top: .5rem;
+}
+.nav{ 
+    background: #703B09;
+    color: white;
+    position: relative;
+    height: 5rem;
+    font-size: 2rem;
+}  
+ul, li{
+    display: inline-block;
+}
+.link-group{
+    position: absolute;
+    top: 10px;
+    right: 40px;
+}
+.link-group li:not(:last-of-type){
+    margin-right: 20px; 
+}
+.link-group li a{
+    color: white;
+    text-decoration: none;
+}
