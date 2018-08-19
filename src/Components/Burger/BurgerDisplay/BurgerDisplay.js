@@ -9,7 +9,7 @@ class BurgerDisplay extends Component{
                 let key = Math.floor((Math.random() * 100) + 1);
                 templist[i] = <li key={key} className={x.name}></li>
             }                         
-            console.log(templist); 
+            // console.log(templist); 
             return templist;
         });  
 

@@ -12,12 +12,12 @@ class BurgerControls extends Component{
           {name: 'Meat', count: 0, price: .50}
         ],
         price: 0 
-    }     
+    }    
     less = (event) =>  {
         var id = event.target.id;
         
         var ingredient = this.state.ingredients.find(x => x.name === id); 
-        if(ingredient.count != 0){
+        if(ingredient.count !== 0){
             ingredient.count = ingredient.count -1;
         }
         var tempArray = this.state.ingredients;
@@ -27,7 +27,7 @@ class BurgerControls extends Component{
         this.setState({
             ingredients: tempArray
         });
-        console.log(id);
+        // console.log(id);
         // console.log(ingredient);
         // console.log(index);
         // console.log(tempArray) ;
@@ -58,7 +58,7 @@ class BurgerControls extends Component{
         return arr.reduce((acc, val, i, arr) => {
             var average = 0;
             var total = acc + val;
-            if(i == (arr.length - 1)){
+            if(i === (arr.length - 1)){
                 average = total/arr.length;
             }
             return average;
