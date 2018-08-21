@@ -17,7 +17,7 @@ class PlayGround extends Component{
         ages: [33,12,20,16,5,54,21,44,61,13,15,45,25,64,32],
         string1: "Dal",
         string2: "mar",
-    }
+    } 
      
     arrayToObjnect = () => {
         var obj;
@@ -64,6 +64,17 @@ class PlayGround extends Component{
         },[]);
         // arr = Object.entries(obj).map(x => x[0] + ' ' + x[1]);
         console.log(arr); 
+    }
+    average = () => {
+        var arr = [1.9, 12.8, 80];
+        return arr.reduce((acc, val, i, arr) => {
+            var average = 0;
+            var total = acc + val;
+            if(i === (arr.length - 1)){
+                average = total/arr.length;
+            }
+            return average;
+        }, 0);
     }
 
     app = () => {

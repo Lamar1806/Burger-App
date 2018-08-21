@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
 import Aux from "../../Hoc/Auxx";
 import BurgerDisplay from "../BurgerDisplay/BurgerDisplay.js"; 
+import Modal from "../../UI/Modal/Modal.js";
 import "./BurgerControls.css";
+import _ from "lodash"; 
 
 class BurgerControls extends Component{
     state = {
         ingredients: [
-          {name: 'Salad', count: 2, price: .20},
+          {name: 'Salad', count: 0, price: 1.20},
           {name: 'Bacon', count: 0, price: .50},
-          {name: 'Cheese', count: 0, price: .1},
-          {name: 'Meat', count: 0, price: .50}
+          {name: 'Cheese', count: 0, price: .75},
+          {name: 'Meat', count: 0, price: .50}, 
         ],
-        price: 0 
+        price: 0,
+        purchasing: false
     }    
     less = (event) =>  {
         var id = event.target.id;
@@ -27,12 +30,8 @@ class BurgerControls extends Component{
         this.setState({
             ingredients: tempArray
         });
-        // console.log(id);
-        // console.log(ingredient);
-        // console.log(index);
-        // console.log(tempArray) ;
     }
-    more = (event, ingredient) =>  { 
+    more = (event) =>  { 
         var id = event.target.id;
         
         var ingredient = this.state.ingredients.find(x => x.name === id); 
@@ -45,31 +44,20 @@ class BurgerControls extends Component{
 
         this.setState({
             ingredients: tempArray
-        });
+        }); 
     }
     calcPrice = () => {
         var prices = this.state.ingredients.map((x) => x.count * x.price);
         return prices.reduce((acc, val) => {
-            return acc + val;
-        }); 
+            acc = acc + val;
+            return parseFloat(acc); 
+        },0); 
     }
-    average = () => {
-        var arr = [1.9, 12.8, 80];
-        return arr.reduce((acc, val, i, arr) => {
-            var average = 0;
-            var total = acc + val;
-            if(i === (arr.length - 1)){
-                average = total/arr.length;
-            }
-            return average;
-        }, 0);
-    }
-    displayControls = (ingredients) => {
-        
+    
+    displayControls = (ingredients) => {        
         var controls = ingredients.map((x) => {
             let key = Math.floor((Math.random() * 10000) + 1);
             return (
-
                 <div  key={key} className="BuildControl">                    
                     <label  className="Label">{x.name}</label>
                     <button onClick={this.less} id={x.name} className="Less" value="x">Less</button>
@@ -79,14 +67,19 @@ class BurgerControls extends Component{
         });
         return controls;
     }
+    purchaseCancelHandler = (event) => {
+        event.preventDefault();    
+        this.setState({purchasing: false});
+    }
     render(){
         return (
             <Aux>
+                <Modal show={this.state.purchasing} price={this.calcPrice()} ingredients={this.state.ingredients} modalClosed={this.purchaseCancelHandler} clicked={(event) => this.purchaseCancelHandler(event)}/>
                 <BurgerDisplay ingredients={this.state.ingredients}/>
                 <div className ="BuildControls">
-                    <p>{this.average()}</p> 
                     <p>Total Price: {this.calcPrice()}</p>
                     {this.displayControls(this.state.ingredients)}
+                    <button className="OrderButton" onClick={() => this.setState({purchasing: true})}>Order Now</button>
                 </div>
             </Aux> 
         );
