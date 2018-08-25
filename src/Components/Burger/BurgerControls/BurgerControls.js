@@ -3,8 +3,9 @@ import Aux from "../../Hoc/Auxx";
 import BurgerDisplay from "../BurgerDisplay/BurgerDisplay.js"; 
 import Modal from "../../UI/Modal/Modal.js";
 import "./BurgerControls.css";
-import _ from "lodash"; 
 
+import axios from "../../../axios-order.js"
+ 
 class BurgerControls extends Component{
     state = {
         ingredients: [
@@ -14,8 +15,10 @@ class BurgerControls extends Component{
           {name: 'Meat', count: 0, price: .50}, 
         ],
         price: 0,
-        purchasing: false
-    }    
+        purchasing: false,
+        loading: false,
+        error: true,
+    }     
     less = (event) =>  {
         var id = event.target.id;
         
@@ -71,10 +74,41 @@ class BurgerControls extends Component{
         event.preventDefault();    
         this.setState({purchasing: false});
     }
+    purchaseContinueHandler = (event) => {
+        event.preventDefault();
+        this.setState({loading: true});
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer: {
+                name: 'Dalmar Brooks',
+                address:{
+                    street: 'Teststreet 1',
+                    zipCode: '41351',
+                    country: 'Germany'
+                },
+                email: 'test@test.com'
+            },
+            deliveryMethod: '2 day shipping'
+        }
+
+        axios.post('/orders.json', order).then((response) => {
+            this.setState({loading: false});
+            this.setState({purchasing: false});
+            console.log(response);
+        }).catch((e) => {
+            console.log('Something went wrong :( \n' + e);
+        });        
+    }
+
     render(){
         return (
             <Aux>
-                <Modal show={this.state.purchasing} price={this.calcPrice()} ingredients={this.state.ingredients} modalClosed={this.purchaseCancelHandler} clicked={(event) => this.purchaseCancelHandler(event)}/>
+                <Modal show={this.state.purchasing} price={this.calcPrice()} ingredients={this.state.ingredients}
+                         modalClosed={this.purchaseCancelHandler} cancel={(event) => this.purchaseCancelHandler(event)}
+                         continue={(event) => this.purchaseContinueHandler(event)} loading={this.state.loading}
+                         error={this.state.error}/>
+
                 <BurgerDisplay ingredients={this.state.ingredients}/>
                 <div className ="BuildControls">
                     <p>Total Price: {this.calcPrice()}</p>

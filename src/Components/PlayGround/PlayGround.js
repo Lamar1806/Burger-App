@@ -76,15 +76,59 @@ class PlayGround extends Component{
             return average;
         }, 0);
     }
+    avg = (...n) => {
+        n.forEach((num)=> {
+            console.log(num);
+        })
+        // let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4, s: 5 };
+        // console.log(x); // 1
+        // console.log(y); // 2
+        // console.log(z); // { a: 3, b: 4 }
+    }
+
+    twoSum = (nums, target) => {
+        var index1 = null;
+        var index2 = null;
+        var tempArray = [...nums];
+        var notfound = true;
+        var count = 0;
+
+        while ((notfound === true) && (tempArray.length > 0)) {
+          nums.forEach((val, i, array) => {
+            var res = 0;
+            res = tempArray[0] + val;
+            if (res !== target) {
+              tempArray = tempArray.slice(0, 1);
+              console.log(tempArray);
+            } else {
+              index1 = nums.indexOf(tempArray[0]);
+              index2 = nums.indexOf(val);
+              
+              notfound = false;
+            }
+          });
+          // console.log(count);
+          count += 1;
+        }
+      
+        return [index1, index2];
+      };
+    
+   
 
     app = () => {
         // console.log('Can Drink');
         // this.strTest();
-        this.objToArray();   
+        // this.objToArray();   
         // this.filterTest(); 
         // this.sortAges();    
         // this.arrayToObjnect();
-    }
+        // this.avg(..."Dalmar");
+        // var arr = [..."Dalmar adfadf adfadsf "];
+        // console.log(arr);
+        var array = [1, 2, 3, 4, 5];
+        console.log(this.twoSum(array, 2));
+    } 
     
     render(){
         return(
